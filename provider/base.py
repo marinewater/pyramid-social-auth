@@ -75,6 +75,8 @@ class BaseProvider():
             decoder=lambda b: json.loads(b.decode(encoding='UTF-8')))  # rauth apparently cannot handle bytes
 
     def get_auth_token(self):
+        if self.session is None:
+            raise AttributeError
         return self.session.access_token
 
     def get_info(self, path):
