@@ -77,7 +77,8 @@ class BaseProvider():
     def get_auth_token(self):
         if self.session is None:
             raise AttributeError
-        return self.session.access_token
+        else:
+            return self.session.access_token
 
     def get_info(self, path):
         """
@@ -85,7 +86,10 @@ class BaseProvider():
         :param path: path for api resource
         :return: :rtype: dict
         """
-        return self.session.get(path, bearer_auth=True, headers=self.headers).json()
+        if self.session is None:
+            raise AttributeError
+        else:
+            return self.session.get(path, bearer_auth=True, headers=self.headers).json()
 
     def get_user_info(self, info):
         """
