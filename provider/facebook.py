@@ -3,6 +3,15 @@ from provider.base import BaseProvider
 
 class FacebookProvider(BaseProvider):
     def __init__(self, client_id, client_secret, name, redirect_uri, state=None):
+        """
+        
+        :param client_id: 
+        :param client_secret: 
+        :param name: 
+        :param redirect_uri: 
+        :param state: 
+        :return:
+        """
         authorize_url = 'https://www.facebook.com/dialog/oauth'
         access_token_url = 'https://graph.facebook.com/oauth/access_token'
         base_url = 'https://graph.facebook.com/'
