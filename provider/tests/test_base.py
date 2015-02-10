@@ -1,8 +1,9 @@
+import unittest
 from provider.base import BaseProvider
 from nose.tools import eq_, ok_
 
 
-class TestBaseProvider():
+class TestBaseProvider(unittest.TestCase):
     def test_base_init(self):
         base = BaseProvider('client_id', 'client_secret', 'authorize_url', 'access_token_url', 'base_url', 'name', 'redirect_uri', state='test')
         eq_(base.settings['client_id'], 'client_id')
@@ -28,3 +29,18 @@ class TestBaseProvider():
         
         ok_(base.get_state() is not None)
         ok_(base.settings['state'] is not None)
+
+    def test_get_user_info(self):
+        base = BaseProvider('client_id', 'client_secret', 'authorize_url', 'access_token_url', 'base_url', 'name', 'redirect_uri')
+
+        self.assertRaises(NotImplementedError, base.get_user_info, 'test')
+        
+    def test_get_user(self):
+        base = BaseProvider('client_id', 'client_secret', 'authorize_url', 'access_token_url', 'base_url', 'name', 'redirect_uri')
+
+        self.assertRaises(NotImplementedError, base.get_user)
+
+    def test_get_email(self):
+        base = BaseProvider('client_id', 'client_secret', 'authorize_url', 'access_token_url', 'base_url', 'name', 'redirect_uri')
+
+        self.assertRaises(NotImplementedError, base.get_email)
