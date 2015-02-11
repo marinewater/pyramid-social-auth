@@ -9,7 +9,7 @@ def auth(request):
     provider_name = request.matchdict.get('provider')
 
     if provider_name not in request.registry.settings:
-        raise LookupError
+        raise LookupError('no settings for provider "%s" specified' % provider_name)
     
     settings = request.registry.settings[provider_name]
 

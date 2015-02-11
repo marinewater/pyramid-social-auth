@@ -7,6 +7,38 @@ from pyramid_app.views import auth
 
 
 class TestViewAuth(unittest.TestCase):
+    def test_unknown_provider(self):
+        registry = Registry()
+
+        with testConfig(registry=registry) as config:
+            config.registry.settings.update({
+                'unknown_provider': {
+                    'client_id': 'abc',
+                    'client_secret': 'def'
+                },
+                'application_name': 'test'
+            })
+    
+            config.add_route('pyramid-social-auth.complete', '/psa/complete/{provider}')
+            request = DummyRequest()
+            request.matchdict = {'provider': 'unknown_provider'}
+
+            self.assertRaises(NotImplementedError, auth, request)
+            
+    def test_missing_settings(self):
+        registry = Registry()
+
+        with testConfig(registry=registry) as config:
+            config.registry.settings.update({
+                'application_name': 'test'
+            })
+
+            config.add_route('pyramid-social-auth.complete', '/psa/complete/{provider}')
+            request = DummyRequest()
+            request.matchdict = {'provider': 'facebook'}
+
+            self.assertRaises(LookupError, auth, request)
+        
     def test_facebook(self):
         registry = Registry()
         
