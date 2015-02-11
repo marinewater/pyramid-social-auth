@@ -16,7 +16,7 @@ class FacebookProvider(BaseProvider):
         access_token_url = 'https://graph.facebook.com/oauth/access_token'
         base_url = 'https://graph.facebook.com/'
 
-        super().__init__(self, client_id, client_secret, authorize_url, access_token_url, base_url, name, redirect_uri,
+        super().__init__(client_id, client_secret, authorize_url, access_token_url, base_url, name, redirect_uri,
                          state=state)
 
     def auth(self, scope=None):
